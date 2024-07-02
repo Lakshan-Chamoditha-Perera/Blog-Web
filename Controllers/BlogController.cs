@@ -24,22 +24,9 @@ public class BlogController : ControllerBase
     public IActionResult CreateBlog([FromBody] Blog blog)
     {
         _logger.LogInformation("API : Method CreateBlog {}:", blog);
-        if (blog == null)
-            return BadRequest("Blog object cannot be null");
-
-        try
-        {
-            var response = _blogService.CreateBlog(blog);
-            return Ok(
-                new StandardResponse<Blog>(true, "Blog created successfully", response));
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError("Failed to create blog: {ErrorMessage}", ex.Message);
-
-            return StatusCode(StatusCodes.Status500InternalServerError,
-                new StandardResponse<object>(false, $"Failed to create blog: {ex.Message}", ex));
-        }
+        if (blog == null) return BadRequest("Blog object cannot be null");
+        var createdBlog = _blogService.CreateBlog(blog);
+            return Ok(new StandardResponse<Blog>(true, "Blog created successfully", createdBlog));
     }
 
 
@@ -47,9 +34,9 @@ public class BlogController : ControllerBase
     public IActionResult GetBlogById(Guid id)
     {
         _logger.LogInformation("GetBlogById {}:", id);
+
         var blog = _blogService.GetBlogById(id);
-        return Ok(
-            new StandardResponse<Blog>(true, "Blog fetched successfully", blog));
+        return Ok(new StandardResponse<Blog>(true, "Blog fetched successfully", blog));
     }
 
     [HttpGet("/blogs")]
@@ -58,8 +45,7 @@ public class BlogController : ControllerBase
         _logger.LogInformation("GetAllBlogs {}:");
 
         var blogs = _blogService.GetAll();
-        return Ok(
-            new StandardResponse<IEnumerable<Blog>>(true, "All blogs fetched successfully", blogs));
+        return Ok(new StandardResponse<IEnumerable<Blog>>(true, "All blogs fetched successfully", blogs));
     }
 
     [HttpDelete("/blogs/{id:guid}")]

@@ -29,6 +29,7 @@ public class BlogServiceImpl : IBlogService
 
             _context.Blogs.Add(blog);
             _context.SaveChanges();
+
             _logger.LogInformation("Blog with ID: {Id} created successfully.", blog.Id);
             return blog;
         }

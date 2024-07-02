@@ -1,4 +1,11 @@
 namespace BlogApp.Payloads;
+/**
+ * Standard response - used for API responses
+ *
+ * Success - bool
+ * Message - string
+ * Data - T
+ */
 public class StandardResponse<T>
 {
     public bool Success { get; set; }
