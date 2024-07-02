@@ -1,6 +1,8 @@
+using System.Runtime.InteropServices.JavaScript;
 using BlogApp.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using BlogApp.Entity;
+using BlogApp.Payloads;
 using BlogApp.Service;
 
 namespace BlogApp.Controllers;
@@ -21,30 +23,33 @@ public class BlogController : ControllerBase
     [HttpPost("/blogs")]
     public IActionResult CreateBlog([FromBody] Blog blog)
     {
-       _logger.LogInformation("CreateBlog {}:", blog);
+        _logger.LogInformation("API : Method CreateBlog {}:", blog);
+        if (blog == null)
+            return BadRequest("Blog object cannot be null");
 
-        _blogService.CreateBlog(blog);
-        var response = new BlogResponse
+        try
         {
-            Id = blog.Id,
-            Title = blog.Title,
-            Content = blog.Content,
-            PublishedDate = blog.PublishedDate
-        };
+            var response = _blogService.CreateBlog(blog);
+            return Ok(
+                new StandardResponse<Blog>(true, "Blog created successfully", response));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Failed to create blog: {ErrorMessage}", ex.Message);
 
-        return CreatedAtAction(nameof(GetBlogById), new { id = blog.Id }, response);
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                new StandardResponse<object>(false, $"Failed to create blog: {ex.Message}", ex));
+        }
     }
 
 
     [HttpGet("/blogs/{id:guid}")]
     public IActionResult GetBlogById(Guid id)
     {
-       _logger.LogInformation("GetBlogById {}:", id);
-
-       var blog = _blogService.GetBlogById(id);
-       if (blog == null) return NotFound();
-
-       return Ok();
+        _logger.LogInformation("GetBlogById {}:", id);
+        var blog = _blogService.GetBlogById(id);
+        return Ok(
+            new StandardResponse<Blog>(true, "Blog fetched successfully", blog));
     }
 
     [HttpGet("/blogs")]
@@ -53,7 +58,8 @@ public class BlogController : ControllerBase
         _logger.LogInformation("GetAllBlogs {}:");
 
         var blogs = _blogService.GetAll();
-        return Ok( blogs);
+        return Ok(
+            new StandardResponse<IEnumerable<Blog>>(true, "All blogs fetched successfully", blogs));
     }
 
     [HttpDelete("/blogs/{id:guid}")]
@@ -61,8 +67,8 @@ public class BlogController : ControllerBase
     {
         _logger.LogInformation("DeleteBlogById {}:", id);
 
-        _blogService.DeleteBlogById(id);
-        return Ok();
+        var isDeleted = _blogService.DeleteBlogById(id);
+        return Ok(new StandardResponse<bool>(true, isDeleted ? "Blog deleted successfully" : "Blog not found", isDeleted));
     }
 
     [HttpPatch("/blogs/{id:guid}")]
@@ -70,7 +76,7 @@ public class BlogController : ControllerBase
     {
         _logger.LogInformation("UpdateBlogById {}:", blog);
 
-        _blogService.UpdateBlogById(blog);
-        return Ok();
+        var updatedBlog = _blogService.UpdateBlogById(blog);
+        return Ok(new StandardResponse<Blog>(true, "Blog updated successfully", updatedBlog));
     }
 }

@@ -4,9 +4,9 @@ namespace BlogApp.Service;
 
 public interface IBlogService
 {
-    void CreateBlog(Blog blog);
+    Blog CreateBlog(Blog blog);
     Blog GetBlogById(Guid id);
     IEnumerable<Blog> GetAll();
-    void DeleteBlogById(Guid id);
-    void UpdateBlogById(Blog blog);
+    Boolean DeleteBlogById(Guid id);
+    Blog UpdateBlogById(Blog blog);
 }

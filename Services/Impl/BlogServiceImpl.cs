@@ -19,7 +19,7 @@ public class BlogServiceImpl : IBlogService
     /**
      * Create blog
      */
-    public void CreateBlog(Blog blog)
+    public Blog CreateBlog(Blog blog)
     {
         _logger.LogInformation("Method CreateBlog");
         try
@@ -29,6 +29,8 @@ public class BlogServiceImpl : IBlogService
 
             _context.Blogs.Add(blog);
             _context.SaveChanges();
+            _logger.LogInformation("Blog with ID: {Id} created successfully.", blog.Id);
+            return blog;
         }
         catch (Exception ex)
         {
@@ -82,7 +84,7 @@ public class BlogServiceImpl : IBlogService
     /**
      * Delete blog by id
      */
-    public void DeleteBlogById(Guid id)
+    public bool DeleteBlogById(Guid id)
     {
         _logger.LogInformation("Method DeleteBlogById with ID: {Id}", id);
         try
@@ -90,12 +92,14 @@ public class BlogServiceImpl : IBlogService
             if (GetBlogById(id) == null)
             {
                 _logger.LogWarning("Blog with ID: {Id} not found. Cannot delete.", id);
-                return;
+                return false;
             }
 
             _context.Blogs.Remove(GetBlogById(id));
             _context.SaveChanges();
+
             _logger.LogInformation("Blog with ID: {Id} deleted successfully.", id);
+            return true;
         }
         catch (Exception ex)
         {
@@ -107,20 +111,22 @@ public class BlogServiceImpl : IBlogService
     /**
      * Update blog by id
      */
-    public void UpdateBlogById(Blog blog)
+    public Blog UpdateBlogById(Blog blog)
     {
         _logger.LogInformation("Method UpdateBlogById with ID: {Id}", blog.Id);
         try
         {
-            if (GetBlogById(blog.Id) == null)
-            {
-                _logger.LogWarning("Blog with ID: {Id} not found. Cannot update.", blog.Id);
-                return;
-            }
+            var existingBlog = _context.Blogs.Find(blog.Id);
+            if (existingBlog == null) throw new Exception("Blog with ID: " + blog.Id + " not found.");
 
-            _context.Blogs.Update(blog);
+            existingBlog.Title = blog.Title;
+            existingBlog.Content = blog.Content;
+            existingBlog.PublishedDate = DateTime.Now;
+
             _context.SaveChanges();
+
             _logger.LogInformation("Blog with ID: {Id} updated successfully.", blog.Id);
+            return existingBlog;
         }
         catch (Exception ex)
         {
