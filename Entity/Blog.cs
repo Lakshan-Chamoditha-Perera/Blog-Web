@@ -12,13 +12,13 @@ public class Blog
         PublishedDate = publishedDate;
     }
 
-    public Guid Id { get; set; }
-    public string Title { get; set; } = "Default Title";
-    public string Content { get; set; } = "Default Content";
-    public DateTime PublishedDate { get; set; } = DateTime.Now;
+    private Guid Id { get; set; }
+    private string Title { get; set; } = "Default Title";
+    private string Content { get; set; } = "Default Content";
+    private DateTime PublishedDate { get; set; } = DateTime.Now;
 
     public override string ToString()
     {
-        return $"Id: {Id}, Title: {Title}, Content: {Content}, PublishedDate: {PublishedDate}";
+        return $"Blog | Id: {Id}, Title: {Title}, Content: {Content}, PublishedDate: {PublishedDate}";
     }
 }
