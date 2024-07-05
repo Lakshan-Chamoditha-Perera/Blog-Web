@@ -1,19 +1,29 @@
-namespace BlogApp.Entity;
+using System.ComponentModel.DataAnnotations;
+// Added for ICollection<T>
+
+// Added for attributes
+
+namespace BlogApp.Entities;
 
 public class User
 {
-    private Guid Id { get; set; }
-    private string Name { get; set; }
-    private string Email { get; set; }
-    private string Password { get; set; }
-
-    public User(string name, string email, string password)
+    public User()
     {
         Id = Guid.NewGuid();
-        Name = name;
-        Email = email;
-        Password = password;
+        Blogs = new List<Blog>(); // Initialize the collection to avoid null reference
     }
+
+    public Guid Id { get; set; }
+
+    [Required]
+    [MaxLength(100)] // Example max length, adjust as needed
+    public string Name { get; set; }
+
+    [Required] [EmailAddress] public string Email { get; set; }
+
+    [Required] public string Password { get; set; }
+
+    public ICollection<Blog> Blogs { get; set; }
 
     public override string ToString()
     {

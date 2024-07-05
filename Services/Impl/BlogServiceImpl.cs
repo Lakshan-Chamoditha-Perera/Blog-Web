@@ -1,6 +1,5 @@
-using BlogApp.Entity;
-using System.Collections.Concurrent;
 using BlogApp.Data;
+using BlogApp.Entities;
 
 namespace BlogApp.Service.Impl;
 
@@ -41,7 +40,7 @@ public class BlogServiceImpl : IBlogService
     }
 
     /**
-     *  Get blog by id
+     * Get blog by id
      */
     public Blog GetBlogById(Guid id)
     {

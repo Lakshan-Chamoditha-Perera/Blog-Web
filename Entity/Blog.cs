@@ -1,21 +1,25 @@
-using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+// Added for attributes
 
-namespace BlogApp.Entity;
+namespace BlogApp.Entities;
 
 public class Blog
 {
-    public Blog(Guid id, string title, string content, DateTime publishedDate)
-    {
-        Id = id;
-        Content = content;
-        Title = title;
-        PublishedDate = publishedDate;
-    }
+    public Guid Id { get; set; }
 
-    private Guid Id { get; set; }
-    private string Title { get; set; } = "Default Title";
-    private string Content { get; set; } = "Default Content";
-    private DateTime PublishedDate { get; set; } = DateTime.Now;
+    [Required]
+    [MaxLength(100)] // Example max length, adjust as needed
+    public string Title { get; set; }
+
+    [Required] public string Content { get; set; }
+
+    [Required] public DateTime PublishedDate { get; set; }
+
+    [Required] public Guid UserId { get; set; } // Foreign key for User
+
+    [ForeignKey("UserId")] // Specify the foreign key name
+    public User User { get; set; }
 
     public override string ToString()
     {

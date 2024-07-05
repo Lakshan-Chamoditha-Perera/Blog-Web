@@ -1,9 +1,8 @@
-namespace BlogApp.Dtos
+namespace BlogApp.Dtos;
+
+public record CreateBlogRequest
 {
-    public record CreateBlogRequest
-    {
-        public string Content;
-        public string Title;
-        public DateTime PublishedDate;
-    }
+    public string Content;
+    public DateTime PublishedDate;
+    public string Title;
 }

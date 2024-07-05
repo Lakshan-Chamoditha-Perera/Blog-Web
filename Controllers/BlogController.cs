@@ -1,17 +1,15 @@
-using System.Runtime.InteropServices.JavaScript;
-using BlogApp.Dtos;
-using Microsoft.AspNetCore.Mvc;
-using BlogApp.Entity;
+using BlogApp.Entities;
 using BlogApp.Payloads;
 using BlogApp.Service;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Controllers;
 
 [ApiController]
 public class BlogController : ControllerBase
 {
-    private readonly ILogger<BlogController> _logger;
     private readonly IBlogService _blogService;
+    private readonly ILogger<BlogController> _logger;
 
     public BlogController(
         ILogger<BlogController> logger, IBlogService blogService)
@@ -26,7 +24,7 @@ public class BlogController : ControllerBase
         _logger.LogInformation("API : Method CreateBlog {}:", blog);
         if (blog == null) return BadRequest("Blog object cannot be null");
         var createdBlog = _blogService.CreateBlog(blog);
-            return Ok(new StandardResponse<Blog>(true, "Blog created successfully", createdBlog));
+        return Ok(new StandardResponse<Blog>(true, "Blog created successfully", createdBlog));
     }
 
 
@@ -54,7 +52,8 @@ public class BlogController : ControllerBase
         _logger.LogInformation("DeleteBlogById {}:", id);
 
         var isDeleted = _blogService.DeleteBlogById(id);
-        return Ok(new StandardResponse<bool>(true, isDeleted ? "Blog deleted successfully" : "Blog not found", isDeleted));
+        return Ok(new StandardResponse<bool>(true, isDeleted ? "Blog deleted successfully" : "Blog not found",
+            isDeleted));
     }
 
     [HttpPatch("/blogs/{id:guid}")]
