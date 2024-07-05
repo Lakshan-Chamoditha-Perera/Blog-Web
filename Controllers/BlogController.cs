@@ -12,7 +12,8 @@ public class BlogController : ControllerBase
     private readonly ILogger<BlogController> _logger;
 
     public BlogController(
-        ILogger<BlogController> logger, IBlogService blogService)
+        ILogger<BlogController> logger,
+        IBlogService blogService)
     {
         _logger = logger;
         _blogService = blogService;

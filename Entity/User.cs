@@ -16,7 +16,7 @@ public class User
     public Guid Id { get; set; }
 
     [Required]
-    [MaxLength(100)] // Example max length, adjust as needed
+    [MaxLength(100)]
     public string Name { get; set; }
 
     [Required] [EmailAddress] public string Email { get; set; }
