@@ -15,7 +15,11 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-app.UseHttpsRedirection(); // enable https redirection
+
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 app.UseRouting(); // mapping routes to controllers
 app.MapControllers(); // map controllers to routes
 app.Run(); // run the app

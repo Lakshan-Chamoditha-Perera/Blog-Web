@@ -13,6 +13,7 @@ public class User
         Blogs = new List<Blog>(); // Initialize the collection to avoid null reference
     }
 
+    [Key]
     public Guid Id { get; set; }
 
     [Required]

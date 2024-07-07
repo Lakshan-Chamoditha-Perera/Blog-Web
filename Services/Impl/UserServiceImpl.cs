@@ -1,5 +1,7 @@
 using BlogApp.Data;
 using BlogApp.Entities;
+using BlogApp.Exceptions;
+using BlogApp.Payloads.Requests;
 
 namespace BlogApp.Service.Impl;
 
@@ -20,7 +22,16 @@ public class UserServiceImpl : IUserService
         _logger.LogInformation("Getting user by email: {Email}", email);
         try
         {
-            var user = _context.Users.SingleOrDefault(u => u.Email == email);
+            var users = _context.Users.Where(u => u.Email == email).ToList();
+            if (!users.Any())
+            {
+                _logger.LogWarning("No users found with email: {Email}", email);
+                return null;
+            }
+
+            var user = users.FirstOrDefault();
+            _logger.LogInformation("User found: {User}", user);
+
             return user;
         }
         catch (Exception ex)
@@ -43,6 +54,49 @@ public class UserServiceImpl : IUserService
         {
             _logger.LogError($"Error occurred while creating user: {ex.Message}");
             throw;
+        }
+    }
+
+    public IEnumerable<User> GetAll()
+    {
+        _logger.LogInformation("Getting all users");
+        try
+        {
+            var users = _context.Users.ToList();
+            return users;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Error occurred while getting all users: {ex.Message}");
+            throw;
+        }
+    }
+
+    public User Login(UserLoginRequest user)
+    {
+        _logger.LogInformation("SERVICE : Method Login with email: {Email}", user.email);
+        try
+        {
+            var user1 = GetUserByEmail(user.email);
+            if (user1 == null)
+            {
+                _logger.LogWarning("No user found with email: {Email}", user.email);
+                throw new UserNotFoundException($"No user found with email: {user.email}");
+            }
+
+            if (user.password == user1.Password)
+            {
+                _logger.LogInformation("User authenticated successfully: {Email}", user.email);
+                return user1;
+            }
+
+            _logger.LogWarning("Authentication failed for user: {Email}", user.email);
+            throw new AuthenticationException("Invalid email or password");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error occurred while logging in user: {Email}", user.email);
+            throw ex;
         }
     }
 }

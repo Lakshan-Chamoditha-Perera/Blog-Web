@@ -6,6 +6,7 @@ namespace BlogApp.Entities;
 
 public class Blog
 {
+    [Key]
     public Guid Id { get; set; }
 
     [Required]
@@ -17,6 +18,7 @@ public class Blog
     [Required] public DateTime PublishedDate { get; set; }
 
     [Required] public Guid UserId { get; set; } // Foreign key for User
+    public byte[] Image { get; set; }
 
     [ForeignKey("UserId")] // Specify the foreign key name
     public User User { get; set; }
