@@ -1,3 +1,4 @@
+using System.Net;
 using BlogApp.Entities;
 using BlogApp.Payloads;
 using BlogApp.Service;
@@ -21,12 +22,55 @@ public class BlogController : ControllerBase
     }
 
     [HttpPost("/blogs")]
-    public IActionResult CreateBlog([FromBody] Blog blog)
+    public async Task<IActionResult> SaveBlog()
     {
-        _logger.LogInformation("API : Method CreateBlog {}:", blog);
-        if (blog == null) return BadRequest("Blog object cannot be null");
-        var createdBlog = _blogService.CreateBlog(blog);
-        return Ok(new StandardResponse<Blog>(true, "Blog created successfully", createdBlog));
+        try
+        {
+            var form = await Request.ReadFormAsync();
+            if (form == null) return BadRequest(new { success = false, message = "Form data is null" });
+
+            // Get form data
+            var title = form["title"].FirstOrDefault();
+            var content = form["content"].FirstOrDefault();
+            var category = form["category"].FirstOrDefault();
+            var userId = form["userId"].FirstOrDefault();
+
+            // Get image from form
+            var imageFile = form.Files.GetFile("image");
+            byte[] imageBytes = null;
+
+            if (imageFile != null && imageFile.Length > 0)
+            {
+                Console.WriteLine("Image file name: " + imageFile.FileName);
+                using (var memoryStream = new MemoryStream())
+                {
+                    await imageFile.CopyToAsync(memoryStream);
+                    imageBytes = memoryStream.ToArray();
+                }
+            }
+
+
+            // Create Blog entity
+            var blog = new Blog
+            {
+                Title = title,
+                Content = content,
+                Category = Enum.Parse<Category>(category, true),
+                Image = imageBytes,
+                UserId = Guid.Parse(userId),
+                PublishedDate = DateTime.UtcNow
+            };
+
+            // Save blog to database
+            var createdBlog = _blogService.CreateBlog(blog);
+
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred while saving the blog");
+            return StatusCode((int)HttpStatusCode.InternalServerError, new { success = false, message = ex.Message });
+        }
     }
 
 

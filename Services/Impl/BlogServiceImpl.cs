@@ -7,12 +7,16 @@ public class BlogServiceImpl : IBlogService
 {
     private readonly DatabaseContext _context;
     private readonly ILogger<BlogServiceImpl> _logger;
+    private readonly IUserService _userService;
 
     public BlogServiceImpl(ILogger<BlogServiceImpl> logger,
-        DatabaseContext context)
+        DatabaseContext context,
+        IUserService userService
+    )
     {
         _logger = logger;
         _context = context;
+        _userService = userService;
     }
 
     /**
@@ -20,11 +24,14 @@ public class BlogServiceImpl : IBlogService
      */
     public Blog CreateBlog(Blog blog)
     {
-        _logger.LogInformation("Method CreateBlog");
+        _logger.LogInformation("Method CreateBlog called with blog: {Blog}", blog);
         try
         {
             blog.Id = Guid.NewGuid();
             blog.PublishedDate = DateTime.Now;
+
+            User user = _userService.GetUserById(blog.UserId);
+            blog.User = user;
 
             _context.Blogs.Add(blog);
             _context.SaveChanges();

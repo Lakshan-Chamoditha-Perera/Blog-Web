@@ -9,4 +9,5 @@ public interface IUserService
     User CreateUser(User user);
     IEnumerable<User> GetAll();
     User Login(UserLoginRequest user);
+    User GetUserById(Guid id);
 }

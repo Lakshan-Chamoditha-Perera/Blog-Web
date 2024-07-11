@@ -18,5 +18,9 @@ public class DatabaseContext : DbContext
             .HasMany(u => u.Blogs)
             .WithOne(b => b.User)
             .HasForeignKey(b => b.UserId);
+
+        modelBuilder.Entity<Blog>()
+            .Property(b => b.Category)
+            .HasConversion<string>();
     }
 }

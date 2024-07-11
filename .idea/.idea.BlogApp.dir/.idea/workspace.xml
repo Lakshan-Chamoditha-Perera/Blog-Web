@@ -12,12 +12,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52cf0b20-621b-4ba8-b752-0f5ef4b124f7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Controllers/Category.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Payloads/Requests/UserRegisterRequest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BlogApp.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BlogApp.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlogApp.http" beforeDir="false" afterPath="$PROJECT_DIR$/BlogApp.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlogApp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BlogApp.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/BlogController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/BlogController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/DatabaseContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Data/DatabaseContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dtos/BlogResponse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Payloads/Responses/BlogResponse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dtos/CreateBlogRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Payloads/Requests/CreateBlogRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entity/Blog.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/Blog.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20240702125339_InitialCreate.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20240702125339_InitialCreate.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20240706045022_..Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20240706045022_..cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20240706061252_images_added.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20240706061252_images_added.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/DatabaseContextModelSnapshot.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/IUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/IUserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Impl/BlogServiceImpl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Impl/BlogServiceImpl.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/Impl/UserServiceImpl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Impl/UserServiceImpl.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,10 +44,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Lakshan-Chamoditha-Perera&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Lakshan-Chamoditha-Perera/Blog-Web.git&quot;,
+    &quot;accountId&quot;: &quot;15fe2de8-0649-4749-9fcc-a0d8e9fb31ec&quot;
+  }
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/11e10ca5eb3048e59b2e58dfe25649a85800/c4/e14d77f5/IWebHostEnvironment.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e5a20aed50c44b16b8d9a5fff97fe0c4b600/32/30bf3053/Error.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///home/shan/Desktop/Extra/dotnet/REST_Solution/BlogApp/appsettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///home/shan/Desktop/Extra/dotnet/REST_Solution/BlogApp/Services/Impl/UserServiceImpl.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -56,10 +81,13 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.codeium.AppSettingsConfigurable&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ],
     &quot;rider.external.source.directories&quot;: [
       &quot;/home/shan/.config/JetBrains/Rider2024.1/resharper-host/DecompilerCache&quot;,
       &quot;/home/shan/.config/JetBrains/Rider2024.1/resharper-host/SourcesCache&quot;,
@@ -72,26 +100,11 @@
       <command value="Update-Database" />
     </option>
   </component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.BlogApp: http">
+  <component name="RunManager">
     <configuration name="BlogApp: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/BlogApp.csproj" />
       <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
       <option name="LAUNCH_PROFILE_NAME" value="http" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
-      <option name="USE_MONO" value="0" />
-      <option name="RUNTIME_ARGUMENTS" value="" />
-      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
-      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
-      <option name="SEND_DEBUG_REQUEST" value="1" />
-      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
-      <method v="2">
-        <option name="Build" />
-      </method>
-    </configuration>
-    <configuration name="BlogApp: https" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
-      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/BlogApp.csproj" />
-      <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
-      <option name="LAUNCH_PROFILE_NAME" value="https" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
       <option name="RUNTIME_ARGUMENTS" value="" />
@@ -119,7 +132,13 @@
       <workItem from="1720101977929" duration="770000" />
       <workItem from="1720156511007" duration="4483000" />
       <workItem from="1720192241947" duration="549000" />
-      <workItem from="1720196837911" duration="1234000" />
+      <workItem from="1720196837911" duration="2899000" />
+      <workItem from="1720240958211" duration="8297000" />
+      <workItem from="1720341396315" duration="8036000" />
+      <workItem from="1720409261793" duration="867000" />
+      <workItem from="1720448824942" duration="7739000" />
+      <workItem from="1720682935376" duration="664000" />
+      <workItem from="1720716140137" duration="3518000" />
     </task>
     <task id="LOCAL-00001" summary="basic CRUD completed">
       <option name="closed" value="true" />
@@ -161,7 +180,23 @@
       <option name="project" value="LOCAL" />
       <updated>1720195982047</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="user registeration done">
+      <option name="closed" value="true" />
+      <created>1720198478526</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1720198478526</updated>
+    </task>
+    <task id="LOCAL-00007" summary="login added, custom exceptions added, db updated &amp; GetUserByEmail method updated">
+      <option name="closed" value="true" />
+      <created>1720372794949</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1720372794949</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,6 +204,13 @@
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="executable:docker" />
+    <option featureType="dependencySupport" implementationName="dotnet:Microsoft.Identity.Client" />
+    <option featureType="dependencySupport" implementationName="dotnet:Microsoft.EntityFrameworkCore.Abstractions" />
+    <option featureType="dependencySupport" implementationName="dotnet:Microsoft.EntityFrameworkCore.Relational" />
+    <option featureType="dependencySupport" implementationName="dotnet:Microsoft.EntityFrameworkCore" />
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -187,6 +229,12 @@
     <MESSAGE value="responses updated" />
     <MESSAGE value="user added" />
     <MESSAGE value="user entity mapped" />
-    <option name="LAST_COMMIT_MESSAGE" value="user entity mapped" />
+    <MESSAGE value="user registeration done" />
+    <MESSAGE value="login added, custom exceptions added, db updated &amp; GetUserByEmail method updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="login added, custom exceptions added, db updated &amp; GetUserByEmail method updated" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

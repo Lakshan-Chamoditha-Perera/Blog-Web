@@ -46,8 +46,16 @@ public class UserServiceImpl : IUserService
         _logger.LogInformation("Creating user: {User}", user);
         try
         {
+            if (_context.Users.Any(u => u.Email == user.Email))
+            {
+                _logger.LogWarning("User already exists with email: {Email}", user.Email);
+                throw new Exception($"User already exists with email: {user.Email}");
+            }
+            user.Id = Guid.NewGuid();
+
             _context.Users.Add(user);
             _context.SaveChanges();
+
             return user;
         }
         catch (Exception ex)
@@ -97,6 +105,28 @@ public class UserServiceImpl : IUserService
         {
             _logger.LogError(ex, "Error occurred while logging in user: {Email}", user.email);
             throw ex;
+        }
+    }
+
+    public User GetUserById(Guid id)
+    {
+
+        _logger.LogInformation("Getting user by ID: {Id}", id);
+        try
+        {
+            var user = _context.Users.Find(id);
+            if (user == null)
+            {
+                _logger.LogWarning("No user found with ID: {Id}", id);
+                throw new UserNotFoundException($"No user found with ID: {id}");
+            }
+            _logger.LogInformation("User found: {User}", user);
+            return user;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Error occurred while getting user by ID: {ex.Message}");
+            throw;
         }
     }
 }
