@@ -1,4 +1,4 @@
-using System.Net;
+using BlogApp.Dtos;
 using BlogApp.Entities;
 using BlogApp.Payloads;
 using BlogApp.Service;
@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace BlogApp.Controllers;
 
 [ApiController]
-[Route("[controller]")]
 public class BlogController : ControllerBase
 {
     private readonly IBlogService _blogService;
@@ -22,54 +21,41 @@ public class BlogController : ControllerBase
     }
 
     [HttpPost("/blogs")]
-    public async Task<IActionResult> SaveBlog()
+    public async Task<IActionResult> SaveBlog([FromForm] CreateBlogRequest createBlogRequest)
     {
+        _logger.LogInformation("SaveBlog {}:", createBlogRequest);
         try
         {
-            var form = await Request.ReadFormAsync();
-            if (form == null) return BadRequest(new { success = false, message = "Form data is null" });
-
-            // Get form data
-            var title = form["title"].FirstOrDefault();
-            var content = form["content"].FirstOrDefault();
-            var category = form["category"].FirstOrDefault();
-            var userId = form["userId"].FirstOrDefault();
-
-            // Get image from form
-            var imageFile = form.Files.GetFile("image");
-            byte[] imageBytes = null;
-
-            if (imageFile != null && imageFile.Length > 0)
-            {
-                Console.WriteLine("Image file name: " + imageFile.FileName);
-                using (var memoryStream = new MemoryStream())
-                {
-                    await imageFile.CopyToAsync(memoryStream);
-                    imageBytes = memoryStream.ToArray();
-                }
-            }
-
-
-            // Create Blog entity
             var blog = new Blog
             {
-                Title = title,
-                Content = content,
-                Category = Enum.Parse<Category>(category, true),
-                Image = imageBytes,
-                UserId = Guid.Parse(userId),
-                PublishedDate = DateTime.UtcNow
+                Title = createBlogRequest.Title,
+                PublishedDate = DateTime.Now,
+                Category = createBlogRequest.Category,
+                Content = createBlogRequest.Content,
+                UserId = createBlogRequest.UserId
             };
 
-            // Save blog to database
-            var createdBlog = _blogService.CreateBlog(blog);
+            if (createBlogRequest.Image != null && createBlogRequest.Image.Length > 0)
+            {
+                _logger.LogInformation("Image exists.");
+                using var memoryStream = new MemoryStream();
+                await createBlogRequest.Image.CopyToAsync(memoryStream);
+                blog.Image = memoryStream.ToArray();
+                _logger.LogInformation("Image size: " + blog.Image.Length);
+            }
 
-            return Ok();
+            var createdBlog = _blogService.CreateBlog(blog);
+            return Ok(new { success = true, message = "Blog created successfully", data = createdBlog });
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while saving the blog");
-            return StatusCode((int)HttpStatusCode.InternalServerError, new { success = false, message = ex.Message });
+            _logger.LogError(ex, "An error occurred while creating the blog");
+            return StatusCode(500, new
+            {
+                success = false,
+                message = "An error occurred while creating the blog",
+                details = ex.Message
+            });
         }
     }
 
@@ -109,5 +95,12 @@ public class BlogController : ControllerBase
 
         var updatedBlog = _blogService.UpdateBlogById(blog);
         return Ok(new StandardResponse<Blog>(true, "Blog updated successfully", updatedBlog));
+    }
+
+    [HttpGet("/abc")]
+    public IActionResult get()
+    {
+        _logger.LogInformation("get()-----");
+        return Ok();
     }
 }

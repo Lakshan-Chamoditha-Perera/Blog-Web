@@ -16,9 +16,7 @@ public class Blog
     [Required] public Guid UserId { get; set; }
 
     [ForeignKey("UserId")] public User User { get; set; }
-
-    [EnumDataType(typeof(Category))]
-    public  Category Category { get; set; }
+    public  string Category { get; set; }
     public byte[] Image { get; set; }
 
     public override string ToString()

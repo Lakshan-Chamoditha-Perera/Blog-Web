@@ -28,13 +28,14 @@ public class BlogServiceImpl : IBlogService
         try
         {
             blog.Id = Guid.NewGuid();
-            blog.PublishedDate = DateTime.Now;
+            blog.PublishedDate = DateTime.UtcNow;
 
-            User user = _userService.GetUserById(blog.UserId);
+            var user = _userService.GetUserById(blog.UserId);
+            if (user == null) throw new Exception($"User with ID {blog.UserId} not found.");
             blog.User = user;
 
-            _context.Blogs.Add(blog);
-            _context.SaveChanges();
+            _context.Blogs.AddAsync(blog);
+            _context.SaveChangesAsync();
 
             _logger.LogInformation("Blog with ID: {Id} created successfully.", blog.Id);
             return blog;

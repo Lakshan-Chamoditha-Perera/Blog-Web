@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using BlogApp.Data;
 using BlogApp.Service;
 using BlogApp.Service.Impl;
@@ -8,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
         new MySqlServerVersion(new Version(8, 0, 36))));
+builder.Services.AddControllers()
+    .AddJsonOptions(options => { options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve; });
 
 builder.Services.AddScoped<IBlogService, BlogServiceImpl>();
 builder.Services.AddScoped<IUserService, UserServiceImpl>();

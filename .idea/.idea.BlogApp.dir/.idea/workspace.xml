@@ -12,26 +12,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52cf0b20-621b-4ba8-b752-0f5ef4b124f7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Controllers/Category.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Payloads/Requests/UserRegisterRequest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BlogApp.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BlogApp.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlogApp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BlogApp.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/BlogController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/BlogController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/DatabaseContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Data/DatabaseContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dtos/BlogResponse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Payloads/Responses/BlogResponse.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dtos/CreateBlogRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Payloads/Requests/CreateBlogRequest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/Blog.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/Blog.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Migrations/20240702125339_InitialCreate.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Migrations/20240702125339_InitialCreate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Migrations/20240706045022_..Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Migrations/20240706045022_..cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Migrations/20240706061252_images_added.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Migrations/20240706061252_images_added.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Migrations/DatabaseContextModelSnapshot.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/IUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/IUserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Payloads/Requests/CreateBlogRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Payloads/Requests/CreateBlogRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/Impl/BlogServiceImpl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Impl/BlogServiceImpl.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Impl/UserServiceImpl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Impl/UserServiceImpl.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,8 +43,8 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/11e10ca5eb3048e59b2e58dfe25649a85800/c4/e14d77f5/IWebHostEnvironment.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/18a394553ead48e48637871858395875c600/9a/494ccdef/IFormFile.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e5a20aed50c44b16b8d9a5fff97fe0c4b600/32/30bf3053/Error.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///home/shan/Desktop/Extra/dotnet/REST_Solution/BlogApp/Services/Impl/UserServiceImpl.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -138,7 +123,7 @@
       <workItem from="1720409261793" duration="867000" />
       <workItem from="1720448824942" duration="7739000" />
       <workItem from="1720682935376" duration="664000" />
-      <workItem from="1720716140137" duration="3518000" />
+      <workItem from="1720716140137" duration="10398000" />
     </task>
     <task id="LOCAL-00001" summary="basic CRUD completed">
       <option name="closed" value="true" />
@@ -196,7 +181,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720372794949</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="crud updated">
+      <option name="closed" value="true" />
+      <created>1720721642817</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1720721642817</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,7 +224,8 @@
     <MESSAGE value="user entity mapped" />
     <MESSAGE value="user registeration done" />
     <MESSAGE value="login added, custom exceptions added, db updated &amp; GetUserByEmail method updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="login added, custom exceptions added, db updated &amp; GetUserByEmail method updated" />
+    <MESSAGE value="crud updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="crud updated" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
